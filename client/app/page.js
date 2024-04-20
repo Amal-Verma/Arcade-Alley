@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 // import TicTacToe from './../public/images/TicTacToe.jpg'
 
-const home = () => {
+const Home = () => {
 
   const router = useRouter()
 
@@ -31,4 +31,4 @@ const home = () => {
   )
 }
 
-export default home
+export default Home

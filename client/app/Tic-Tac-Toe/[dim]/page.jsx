@@ -3,7 +3,7 @@
 import React, {useState} from 'react'
 import Board from '../components/board/board'
 
-const page = (context) => {
+const TicTacToe = (context) => {
   const dim = parseInt(context.params.dim)
 
   const [input, setInput] = useState(false)
@@ -31,4 +31,4 @@ const page = (context) => {
   )
 }
 
-export default page
+export default TicTacToe

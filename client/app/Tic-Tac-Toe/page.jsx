@@ -4,7 +4,7 @@ import React from 'react'
 import { useRouter } from 'next/navigation'
 
 
-const page = () => {
+const TicTacToeHomePage = () => {
 
   const router = useRouter()
 
@@ -26,4 +26,4 @@ const page = () => {
   )
 }
 
-export default page
+export default TicTacToeHomePage
