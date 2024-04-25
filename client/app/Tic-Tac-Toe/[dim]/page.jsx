@@ -20,7 +20,7 @@ const TicTacToe = (context) => {
 
   return (
     <div className='flex h-screen w-screen justify-center items-center'>
-      {input?<Board dim={dim} size={500} ai={ai} />:
+      {input?<Board dim={dim} size={Math.min(window.innerHeight, window.innerWidth) *5/6} ai={ai} />:
       <div className='flex flex-row items-center justify-evenly h-screen w-screen'>
         <button style={buttonStyle} onClick={() => {setInput(true); setai(true)}}>Computer</button>
         <button style={buttonStyle} onClick={() => {setInput(true); setai(false)}}>PassPlay</button>
