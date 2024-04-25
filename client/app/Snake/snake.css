@@ -1,0 +1,74 @@
+/* .main-game-container{
+    position:absolute;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+    background-color:black;
+    color:white;
+}
+
+.innergamecontainer{
+    width:500px;
+    margin:auto;
+    text-align:center;
+}
+
+.game-tile{
+    width:26px;
+}
+.game{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+} */
+/* snake.css */
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #333;
+    font-family: "Ubuntu", sans-serif;
+    font-size: 20px;
+    color: black;
+  }
+  
+  .game {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  }
+  
+  .main-game-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .innergamecontainer {
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(19, 20px);
+    grid-gap: 1px;
+    background-color: limegreen;
+    padding: 5px;
+  }
+  /* .GameOver{
+    text-align: center;
+  } */
+  .innergamecontainer h1 {
+    grid-column: 1 / -1;
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  .innergamecontainer button {
+    grid-column: 1 / -1;
+    margin-top: 10px;
+  }
