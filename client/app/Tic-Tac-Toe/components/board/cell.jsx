@@ -7,6 +7,8 @@ const Cell = (props) => {
     height: props.size,
     width: props.size,
     border: "1px solid black",
+    fontSize: "30px",
+    userSelect: "none",
   };
 
   return (
