@@ -72,3 +72,11 @@ body {
     grid-column: 1 / -1;
     margin-top: 10px;
   }
+  .attr{
+    top:0;
+    left:0;
+    position: absolute;
+    margin: 20px;
+    color: whitesmoke;
+    font-family: "Ubuntu", sans-serif;
+  }
