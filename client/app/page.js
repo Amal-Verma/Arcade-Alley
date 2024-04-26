@@ -3,6 +3,7 @@
 import React from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
+import './styles.css'
 // import TicTacToe from './../public/images/TicTacToe.jpg'
 
 const Home = () => {
@@ -33,16 +34,16 @@ const Home = () => {
         <div className="card" style={{ '--clr': '#009688' }}>
        
  
-    <div className="img-box" onClick={handleImageClick1}>
+    <div className="img-box" >
       <img src="/Images/sud.jpeg" alt="Sudoku Game" />
     </div>
 
             <div className="content">
                 <h2>Sudoku</h2>
                 <p>
-                  
+                Test your logic with Sudoku puzzles, filling a grid with numbers 1-9 without repetition in rows, columns, or 3x3 regions.
                 </p>
-                <a href="">Read More</a>
+                <button onClick={handleImageClick1}>Play</button>
             </div>
         </div>
         <div className="card" style={{ '--clr': '#009688' }}>
@@ -53,36 +54,36 @@ const Home = () => {
     </div>
 
             <div className="content">
-                <h2>Sudoku</h2>
+                <h2>Rock Paper Scissors</h2>
                 <p>
-                    
+                  {/* description   */}
                 </p>
-                <a href="">Read More</a>
+                <button onClick={handleImageClick1}>Play</button>
             </div>
         </div>
         <div className="card" style={{'--clr':'#FF3E7F'}}>
-            <div className="img-box" onClick={handleImageClick2}>
+            <div className="img-box" >
                 <img src="/Images/tic2.jpeg" />
             </div>
             <div className="content">
                 <h2>TicTacToe</h2>
                 <p>
-                    
+                Play the classic game of Xs and Os on a 3x3 grid, aiming to get three in a row before your opponent.
                 </p>
-                <a href="">Read More</a>
+                <button onClick={handleImageClick2}>Play</button>
             </div>
         </div>
         <div className="card" style={{'--clr': '#03A9F4'}}>
 
-            <div className="img-box" onClick={handleImageClick3}>
+            <div className="img-box" >
                 <img src="/Images/snake2.jpeg" />
             </div>
             <div className="content">
                 <h2>Snake</h2>
                 <p>
-                   
+                Guide a growing snake to eat food and avoid obstacles, challenging your reflexes as you grow longer.
                 </p>
-                <a href="">Play</a>
+                <button onClick={handleImageClick3}>Play</button>
             </div>
         </div>
     </div>

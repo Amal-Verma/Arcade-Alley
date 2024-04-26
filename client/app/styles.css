@@ -88,7 +88,7 @@
     color: #333;
 }
 
-.container .card .content a {
+.container .card .content button {
     position: relative;
     top: 15px;
     display: inline-block;
@@ -110,7 +110,7 @@
     }
 
     .container .card .img-box {
-        width: 185px;
+        width: 230px;
         border-radius: 10px;
     }
 
