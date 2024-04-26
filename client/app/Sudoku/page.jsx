@@ -175,8 +175,8 @@ const handlePlayGame = () => {
                   }
                 }}
                 onClick={() => handleCellClick(i)}
-                data-value={value}
-              >{value !== CONSTANT.UNASSIGNED ? value : ''} </div>
+               
+              > </div>
             ))}
           </div>
   
