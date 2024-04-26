@@ -12,6 +12,12 @@ const GameOverScreen = (props) => {
     fontSize: "3rem",
     color: "white",
     zIndex: "2",
+    userSelect: "none",
+  };
+
+  const neonText = {
+    color: "white",
+    textShadow: "0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ff00de, 0 0 30px #ff00de, 0 0 40px #ff00de, 0 0 55px #ff00de, 0 0 75px #ff00de",
   };
 
   const [text, setText] = useState("Game");
@@ -29,7 +35,7 @@ const GameOverScreen = (props) => {
 
   return (
     <div style={gameOverStyle} onClick={() => props.resetBoard()}>
-      {text}
+      <span style={neonText}>{text}</span>
     </div>
   );
 };
