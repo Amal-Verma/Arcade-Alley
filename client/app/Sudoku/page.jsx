@@ -153,7 +153,7 @@ const handlePlayGame = () => {
         showScreen === 'game' ? 'main-game' : ''
       } ${showScreen === 'pause' ? 'pause-screen' : ''} ${
         showScreen === 'result' ? 'result-screen' : ''
-      } flex flex-col items-center justify-center`}
+      } flex flex-col items-center justify-center bg-black h-screen w-screen`}
     >
       {showScreen === 'start' && (
         <div className="flex flex-col items-center">
