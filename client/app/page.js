@@ -12,7 +12,10 @@ const Home = () => {
   const Images = [
     {src: '/Images/TicTacToe.png', redirect : '/Tic-Tac-Toe'},
     {src: '/Images/TicTacToe.png', redirect : '/Tic-Tac-Toe'},
-    {src: '/Images/TicTacToe.png', redirect : '/Tic-Tac-Toe'},
+    {src: '/Images/sneksnek.png', redirect : '/Tic-Tac-Toe'},
+  ]
+  const links = [
+    "/Tic-Tac-Toe", "link2", "/Snake"
   ]
 
   return (
@@ -22,7 +25,7 @@ const Home = () => {
         {Images.map((image, index) => {
           return (
             <div key={index} onClick={() => {router.push(image.redirect)}}>
-              <Image src={image.src} alt='home' height={250} width={250}/>
+              <a href={links[index]}><Image src={image.src} alt='home' height={250} width={250}/></a>
             </div>
           )
         })}

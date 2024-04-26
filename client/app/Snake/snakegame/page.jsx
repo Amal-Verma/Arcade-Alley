@@ -110,6 +110,7 @@ class Game extends React.Component {
     render() {
         return (
             <>
+                <a className="attr" href='/'>Go Back to Arkade</a>
                 <div className="game">
                     <div className="main-game-container">
                         <div className="innergamecontainer">
