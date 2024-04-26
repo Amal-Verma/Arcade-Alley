@@ -3,9 +3,6 @@
 import React from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import Link from 'next/link'
-import './styles.css'
-
 // import TicTacToe from './../public/images/TicTacToe.jpg'
 
 const Home = () => {
@@ -24,7 +21,10 @@ const Home = () => {
   const Images = [
     {src: '/Images/TicTacToe.png', redirect : '/Tic-Tac-Toe'},
     {src: '/Images/TicTacToe.png', redirect : '/Tic-Tac-Toe'},
-    {src: '/Images/TicTacToe.png', redirect : '/Tic-Tac-Toe'},
+    {src: '/Images/sneksnek.png', redirect : '/Tic-Tac-Toe'},
+  ]
+  const links = [
+    "/Tic-Tac-Toe", "link2", "/Snake"
   ]
 
   return (
@@ -86,7 +86,6 @@ const Home = () => {
             </div>
         </div>
     </div>
-
   )
 }
 
