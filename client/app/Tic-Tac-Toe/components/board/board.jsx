@@ -26,6 +26,7 @@ const Board = (props) => {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    border: "2px solid #fc03f0",
   }
 
   const boardStyle = {
