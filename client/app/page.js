@@ -17,6 +17,11 @@ const Home = () => {
   const links = [
     "/Tic-Tac-Toe", "link2", "/Snake"
   ]
+  const names = [
+    "TicTacToe",
+    "Sudoku",
+    "Snake"
+  ]
 
   return (
     <div>
@@ -24,8 +29,9 @@ const Home = () => {
       <div className='flex flex-row h-screen w-screen items-center justify-evenly'>
         {Images.map((image, index) => {
           return (
-            <div key={index} onClick={() => {router.push(image.redirect)}}>
+            <div className='divdiv' key={index} onClick={() => {router.push(image.redirect)}}>
               <a href={links[index]}><Image src={image.src} alt='home' height={250} width={250}/></a>
+              <div>{names[index]}</div>
             </div>
           )
         })}
