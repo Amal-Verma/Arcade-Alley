@@ -27,6 +27,11 @@ const Home = () => {
   const links = [
     "/Tic-Tac-Toe", "link2", "/Snake"
   ]
+  const names = [
+    "TicTacToe",
+    "Sudoku",
+    "Snake"
+  ]
 
   return (
    
