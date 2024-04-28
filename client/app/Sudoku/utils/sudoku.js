@@ -32,9 +32,14 @@ const isRowSafe = (grid, row, value) => {
 
 // check duplicate number in 3x3 box
 const isBoxSafe = (grid, box_row, box_col, value) => {
-  for (let row = 0; row < CONSTANT.BOX_SIZE; row++) {
-    for (let col = 0; col < CONSTANT.BOX_SIZE; col++) {
-      if (grid[row + box_row][col + box_col] === value) return false;
+  const BOX_SIZE = CONSTANT.BOX_SIZE;
+  for (let row = 0; row < BOX_SIZE; row++) {
+    for (let col = 0; col < BOX_SIZE; col++) {
+      const currentRow = row + box_row;
+      const currentCol = col + box_col;
+      if (grid[currentRow] && grid[currentRow][currentCol] === value) {
+        return false;
+      }
     }
   }
   return true;
@@ -90,35 +95,25 @@ const isFullGrid = (grid) => {
 };
 
 const sudokuCreate = (grid) => {
-  let unassigned_pos = {
-    row: -1,
-    col: -1,
-  };
+  for (let row = 0; row < CONSTANT.GRID_SIZE; row++) {
+    for (let col = 0; col < CONSTANT.GRID_SIZE; col++) {
+      if (grid[row][col] === CONSTANT.UNASSIGNED) {
+        for (let num = 1; num <= CONSTANT.GRID_SIZE; num++) {
+          if (isSafe(grid, row, col, num)) {
+            grid[row][col] = num;
 
-  if (!findUnassignedPos(grid, unassigned_pos)) return true;
+            if (sudokuCreate(grid)) {
+              return true;
+            }
 
-  let number_list = shuffleArray([...CONSTANT.NUMBERS]);
-
-  let row = unassigned_pos.row;
-  let col = unassigned_pos.col;
-
-  number_list.forEach((num, i) => {
-    if (isSafe(grid, row, col, num)) {
-      grid[row][col] = num;
-
-      if (isFullGrid(grid)) {
-        return true;
-      } else {
-        if (sudokuCreate(grid)) {
-          return true;
+            grid[row][col] = CONSTANT.UNASSIGNED;
+          }
         }
+        return false;
       }
-
-      grid[row][col] = CONSTANT.UNASSIGNED;
     }
-  });
-
-  return isFullGrid(grid);
+  }
+  return true;
 };
 
 export const sudokuCheck = (grid) => {
@@ -167,13 +162,20 @@ const removeCells = (grid, level) => {
 // generate sudoku base on level
 export const sudokuGen = (level) => {
   let sudoku = newGrid(CONSTANT.GRID_SIZE);
+  console.log('Initial grid:', sudoku);
+
   let check = sudokuCreate(sudoku);
   if (check) {
+    console.log('Solved grid:', sudoku);
     let question = removeCells(sudoku, level);
+    console.log('Grid with removed cells:', question);
+
     return {
       original: sudoku,
       question: question,
     };
   }
+
+  console.log('Failed to generate Sudoku puzzle');
   return undefined;
 };
