@@ -1,0 +1,4 @@
+.prefilled {
+    pointer-events: none; /* Make the pre-filled cells uneditable */
+    background-color: blue;
+  }

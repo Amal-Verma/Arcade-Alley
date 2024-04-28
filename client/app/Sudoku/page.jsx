@@ -5,9 +5,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as utils from './utils/logic';
 import * as sudokuUtils from './utils/sudoku';
 import  CONSTANT  from './utils/constant';
+import './sudoku.css';
+import './utils/logic.css'
 
 
-const Sudoku = ({ isDarkMode }) => {
+const Sudoku = () => {
   const [level, setLevel] = useState(0);
   const [gameData, setGameData] = useState(null);
   const [seconds, setSeconds] = useState(0);
@@ -15,17 +17,26 @@ const Sudoku = ({ isDarkMode }) => {
   const [selectedCell, setSelectedCell] = useState(-1);
   const [showScreen, setShowScreen] = useState('start');
 
-  const cellRefs = useRef([]);
+  const cellRefsArray = useRef([]);
   const timerRef = useRef(null);
 
   useEffect(() => {
     const sudokuData = sudokuUtils.sudokuGen(CONSTANT.LEVEL[0]);
     if (sudokuData) {
       setGameData({ su: sudokuData });
-      utils.initGameGrid(cellRefs.current, sudokuData.question);
     }
     setShowScreen('start');
+  
+    // Populate the cellRefsArray with the DOM elements
+    const cells = document.querySelectorAll('.sudoku-cell');
+    cellRefsArray.current = Array.from(cells);
+  
+    // Call initGameGrid after cellRefsArray.current has been populated
+    if (sudokuData) {
+      utils.initGameGrid(cellRefsArray.current, sudokuData.question, sudokuData.original);
+    }
   }, []);
+
 
   useEffect(() => {
     if (showScreen === 'game' && !pause) {
@@ -37,30 +48,26 @@ const Sudoku = ({ isDarkMode }) => {
     }
   }, [showScreen, pause]);
 
-  useEffect(() => {
-    if (cellRefs.current.length > 0) {
-      utils.initGameGrid(cellRefs);
+  
+
+  const handleLevelChange = () => {
+    setLevel((prevLevel) => (prevLevel + 1) % CONSTANT.LEVEL_NAME.length);
+    const sudokuData = sudokuUtils.sudokuGen(CONSTANT.LEVEL[(level + 1) % CONSTANT.LEVEL_NAME.length]);
+    if (sudokuData) {
+      setGameData({ su: sudokuData });
+      utils.initGameGrid(cellRefsArray.current, sudokuData.question);
     }
-  }, []);
+  };
 
- const handleLevelChange = () => {
-  setLevel((prevLevel) => (prevLevel + 1) % CONSTANT.LEVEL_NAME.length);
-  const sudokuData = sudokuUtils.sudokuGen(CONSTANT.LEVEL[(level + 1) % CONSTANT.LEVEL_NAME.length]);
-  if (sudokuData) {
-    setGameData({ su: sudokuData });
-    utils.initGameGrid(cellRefs.current, sudokuData.question);
-  }
-};
-
-const handlePlayGame = () => {
-  setLevel((prevLevel) => (prevLevel + 1) % CONSTANT.LEVEL_NAME.length);
-  const sudokuData = sudokuUtils.sudokuGen(CONSTANT.LEVEL[level]);
-  if (sudokuData) {
-    setGameData({ su: sudokuData });
-    utils.initGameGrid(cellRefs.current, sudokuData.question);
-  }
-  setShowScreen('game');
-};
+  const handlePlayGame = () => {
+    setLevel((prevLevel) => (prevLevel + 1) % CONSTANT.LEVEL_NAME.length);
+    const sudokuData = sudokuUtils.sudokuGen(CONSTANT.LEVEL[level]);
+    if (sudokuData) {
+      setGameData({ su: sudokuData });
+      utils.initGameGrid(cellRefsArray.current, sudokuData.question, sudokuData.original);
+    }
+    setShowScreen('game');
+  };
 
   const handlePauseGame = () => {
     setPause(true);
@@ -79,74 +86,89 @@ const handlePlayGame = () => {
   };
 
   const handleCellClick = (index) => {
-    if (
-      cellRefs.current[index] &&
-      cellRefs.current[index].current &&
-      !cellRefs.current[index].current.classList.contains('filled')
-    ) {
-      cellRefs.current.forEach((cellRef) => {
-        if (cellRef && cellRef.current) {
-          cellRef.current.classList.remove('selected');
+    const cellRef = cellRefsArray.current[index];
+    if (cellRef) {
+      cellRefsArray.current.forEach((cell) => {
+        if (cell) {
+          cell.classList.remove('selected');
         }
       });
-
+  
       setSelectedCell(index);
-      if (cellRefs.current[index].current) {
-        cellRefs.current[index].current.classList.remove('err');
-        cellRefs.current[index].current.classList.add('selected');
-      }
-      utils.resetBg(cellRefs);
-      utils.hoverBg(index, cellRefs);
+      console.log('Adding .selected class to cell:', index);
+      cellRef.classList.remove('err');
+      cellRef.classList.add('selected');
+  
+      utils.resetBg(cellRefsArray.current);
+      utils.hoverBg(index, cellRefsArray.current);
+    } else {
+      console.log('Cell is not clickable for index:', index);
     }
     console.log("cell clicked");
   };
 
   const handleNumberClick = (number) => {
     if (
-      cellRefs.current[selectedCell] &&
-      cellRefs.current[selectedCell].current &&
-      !cellRefs.current[selectedCell].current.classList.contains('filled') // Change this line
+      cellRefsArray.current[selectedCell] &&
+      cellRefsArray.current[selectedCell].getAttribute('data-value') === '0' &&
+      !cellRefsArray.current[selectedCell].classList.contains('prefilled')
     ) {
-      const cellRef = cellRefs.current[selectedCell].current;
+      const cellRef = cellRefsArray.current[selectedCell];
       const row = Math.floor(selectedCell / CONSTANT.GRID_SIZE);
       const col = selectedCell % CONSTANT.GRID_SIZE;
   
+      // Create a new copy of the question array
+      const newQuestionArray = [...gameData.su.question];
+      newQuestionArray[row][col] = number;
+  
+      // Create a new copy of the original array
+      const newOriginalArray = [...gameData.su.original];
+      newOriginalArray[row][col] = number;
+  
+      // Update the gameData state with the new question and original arrays
+      setGameData({ ...gameData, su: { ...gameData.su, question: newQuestionArray, original: newOriginalArray } });
+  
       cellRef.innerHTML = number;
       cellRef.setAttribute('data-value', number);
-      gameData.su.question[row][col] = number;
   
-      utils.saveGameInfo(gameData);
-      utils.removeErr(cellRefs);
-      utils.checkErr(number, selectedCell, cellRefs);
+      utils.removeErr(cellRefsArray.current); // Remove previous error highlights
+  
+      // Check for errors and highlight only if the inserted number is not 0
+      if (number !== 0) {
+        utils.checkErr(number, selectedCell, cellRefsArray.current);
+      }
   
       cellRef.classList.add('zoom-in');
       setTimeout(() => {
         cellRef.classList.remove('zoom-in');
       }, 500);
   
-      if (sudokuUtils.sudokuCheck(gameData.su.question)) {
-        utils.removeGameInfo();
+      if (sudokuUtils.sudokuCheck(newQuestionArray)) {
         setShowScreen('result');
       }
     }
     console.log("number clicked");
   };
-
+  
   const handleDeleteClick = () => {
-    if (cellRefs.current[selectedCell] && cellRefs.current[selectedCell].current) {
-      cellRefs.current[selectedCell].current.innerHTML = '';
-      cellRefs.current[selectedCell].current.setAttribute('data-value', 0);
-
-      const row = Math.floor(selectedCell / CONSTANT.GRID_SIZE);
-      const col = selectedCell % CONSTANT.GRID_SIZE;
-      gameData.su.question[row][col] = 0;
-
-      utils.removeErr(cellRefs);
+    const selectedCellRef = cellRefsArray.current[selectedCell];
+    if (selectedCellRef && !selectedCellRef.classList.contains('prefilled')) {
+      const currentValue = selectedCellRef.getAttribute('data-value');
+      if (currentValue !== CONSTANT.UNASSIGNED && currentValue !== '0') {
+        selectedCellRef.innerHTML = '';
+        selectedCellRef.setAttribute('data-value', 0);
+  
+        const row = Math.floor(selectedCell / CONSTANT.GRID_SIZE);
+        const col = selectedCell % CONSTANT.GRID_SIZE;
+        gameData.su.question[row][col] = 0;
+  
+        utils.removeErr(cellRefsArray.current); // Remove error highlighting
+      }
     }
     console.log("delete clicked");
-  
-
   };
+
+  
   return (
     <div
       className={`screen ${showScreen === 'start' ? 'start-screen' : ''} ${
@@ -185,7 +207,7 @@ const handlePlayGame = () => {
           }`}
           ref={(el) => {
             if (el) {
-              cellRefs.current[rowIndex * CONSTANT.GRID_SIZE + colIndex] = el;
+              cellRefsArray.current[rowIndex * CONSTANT.GRID_SIZE + colIndex] = el;
             }
           }}
           onClick={() => handleCellClick(rowIndex * CONSTANT.GRID_SIZE + colIndex)}
@@ -201,7 +223,7 @@ const handlePlayGame = () => {
   <div className="flex flex-col">
           <div className="mt-4 grid grid-cols-2 gap-2 ">
             <div className="h-12 w-48 rounded-lg bg-gray-200 text-2xl leading-12 flex items-center justify-center">
-              {CONSTANT.LEVEL_NAME[level]}
+              {CONSTANT.LEVEL_NAME[level-1]}
             </div>
           </div>
 

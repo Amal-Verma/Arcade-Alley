@@ -1,0 +1,10 @@
+.selected {
+  background-color: lightblue;
+  border: 2px solid blue;
+}
+
+.err {
+  background-color: #ff6666 !important;
+  color: white;
+}
+
