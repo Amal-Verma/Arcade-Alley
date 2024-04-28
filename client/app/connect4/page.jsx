@@ -24,7 +24,7 @@ const Connect4 = () => {
 
   return (
     <div className='flex h-screen w-screen justify-center items-center' style={{backgroundColor: "#0b013e"}}>
-      {input?<Board size={Math.min(window.innerHeight, window.innerWidth) *5/6} ai={ai} />:
+      {input?<Board size={Math.min(window.innerHeight / 6, window.innerWidth / 10) * 5} ai={ai} />:
       <div className='flex flex-row flex-wrap items-center justify-evenly h-screen w-screen'>
         <button style={buttonStyle} onClick={() => {setInput(true); setai(true)}}>
           <span style={neonText}>Computer</span>
