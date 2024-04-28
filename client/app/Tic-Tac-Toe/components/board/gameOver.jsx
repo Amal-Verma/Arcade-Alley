@@ -20,17 +20,15 @@ const GameOverScreen = (props) => {
     textShadow: "0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ff00de, 0 0 30px #ff00de, 0 0 40px #ff00de, 0 0 55px #ff00de, 0 0 75px #ff00de",
   };
 
-  const [text, setText] = useState("Game");
+  const [text, setText] = useState("Draw");
 
   useEffect(() => {
     if (props.w === "X") {
       setText("X Wins");
     } else if (props.w === "O") {
       setText("O Wins");
-    } else if (props.w === "T") {
-      setText("Draw");
     }
-    console.log("winner gameover", props.w);
+    // console.log("winner gameover", props.w);
   }, []);
 
   return (

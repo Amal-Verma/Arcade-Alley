@@ -94,8 +94,8 @@ class Game extends React.Component {
     }
 
     renderGameMatrix = () => {
-        return this.state.gameMatrix.map((row) =>
-            row.map((t) => <Tile color={t === 2 ? "red" : t ? "blue" : "lightgrey"} />)
+        return this.state.gameMatrix.map((row, i) =>
+            row.map((t) => <Tile key={i} color={t === 2 ? "red" : t ? "blue" : "lightgrey"} />)
         );
     }
 

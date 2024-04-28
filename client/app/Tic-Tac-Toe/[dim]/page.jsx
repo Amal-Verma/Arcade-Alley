@@ -26,7 +26,7 @@ const TicTacToe = (context) => {
   return (
     <div className='flex h-screen w-screen justify-center items-center' style={{backgroundColor: "#0b013e"}}>
       {input?<Board dim={dim} size={Math.min(window.innerHeight, window.innerWidth) *5/6} ai={ai} />:
-      <div className='flex flex-row items-center justify-evenly h-screen w-screen'>
+      <div className='flex flex-row flex-wrap items-center justify-evenly h-screen w-screen'>
         <button style={buttonStyle} onClick={() => {setInput(true); setai(true)}}>
           <span style={neonText}>Computer</span>
         </button>
