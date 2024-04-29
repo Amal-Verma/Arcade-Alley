@@ -20,6 +20,9 @@ const Home = () => {
   const handleImageClick4 = () => {
     router.push("/connect4");
   };
+  const handleImageClick5 = () => {
+    router.push("/rockpaperscissor");
+  };
 
   const Images = [
     {src: '/Images/TicTacToe.png', redirect : '/Tic-Tac-Toe'},
@@ -53,13 +56,13 @@ const Home = () => {
       </div>
       <div className="card" style={{ "--clr": "#009688" }}>
         <div className="img-box">
-          <img src="/Images/sud.jpeg" alt="Sudoku Game" />
+          <img src="/Images/rockpaperscissor.jpg" alt="Sudoku Game" />
         </div>
 
         <div className="content">
           <h2>Rock Paper Scissors</h2>
           <p>{/* description   */}</p>
-          <button onClick={handleImageClick1}>Play</button>
+          <button onClick={handleImageClick5}>Play</button>
         </div>
       </div>
       <div className="card" style={{ "--clr": "#FF3E7F" }}>
