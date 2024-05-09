@@ -67,7 +67,7 @@ const Home = () => {
       </div>
       <div className="card" style={{ "--clr": "#FF3E7F" }}>
         <div className="img-box">
-          <img src="/Images/tic2.jpeg" />
+          <img src="/Images/tic2.jpeg" alt="tictactoe"/>
         </div>
         <div className="content">
           <h2>TicTacToe</h2>
@@ -80,7 +80,7 @@ const Home = () => {
       </div>
       <div className="card" style={{ "--clr": "#03A9F4" }}>
         <div className="img-box">
-          <img src="/Images/snake2.jpeg" />
+          <img src="/Images/snake2.jpeg" alt="snake"/>
         </div>
         <div className="content">
           <h2>Snake</h2>
