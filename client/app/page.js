@@ -61,7 +61,7 @@ const Home = () => {
 
         <div className="content">
           <h2>Rock Paper Scissors</h2>
-          <p>Classic hand game where players simultaneously choose between rock, paper, or scissors, with rock beating scissors, scissors cutting paper, and paper covering rock.</p>
+          <p>Hand game: Rock beats scissors, scissors cut paper, paper covers rock.</p>
           <button onClick={handleImageClick5}>Play</button>
         </div>
       </div>
